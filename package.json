@@ -1,0 +1,23 @@
+{
+  "name": "playwright.typescript.automationchallenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neiltorrentira/Playwright.TypeScript.AutomationChallenge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/neiltorrentira/Playwright.TypeScript.AutomationChallenge/issues"
+  },
+  "homepage": "https://github.com/neiltorrentira/Playwright.TypeScript.AutomationChallenge#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.1.2"
+  }
+}
