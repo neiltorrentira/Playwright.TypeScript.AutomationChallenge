@@ -18,6 +18,10 @@
   "homepage": "https://github.com/neiltorrentira/Playwright.TypeScript.AutomationChallenge#readme",
   "devDependencies": {
     "@playwright/test": "^1.62.1",
-    "@types/node": "^26.1.2"
+    "@types/node": "^26.1.2",
+    "@types/xlsx": "^0.0.35"
+  },
+  "dependencies": {
+    "xlsx": "^0.18.5"
   }
 }
