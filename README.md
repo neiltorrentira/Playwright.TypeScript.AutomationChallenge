@@ -1,6 +1,6 @@
 # The Automation Challenge — Playwright Automation
 
-End-to-end Playwright + TypeScript automation for [The Automation Challenge](https://www.theautomationchallenge.com/). Logs in, starts the timed 50-round challenge, and types every row from `data/challenge.xlsx` into the on-screen form — even though the fields relocate, resize, and get new selectors after every Submit.
+End-to-end Playwright + TypeScript automation for [The Automation Challenge](https://www.theautomationchallenge.com/). Logs in, starts the timed 50-round challenge, and types every row from `data/challenge.xlsx` into the on-screen form - even though the fields relocate, resize, and get new selectors after every Submit.
 
 ## How field matching works
 
@@ -13,7 +13,7 @@ npm install
 npx playwright install chromium
 ```
 
-Credentials and the target URL live in `challenge-data.json` (password is base64-encoded, decoded at runtime by `utils/environment.ts`).
+Credentials and the target URL are stored in `data/test-data.json`. Passwords are stored as base64-encoded strings and decoded at runtime using `Buffer.from(encodedPassword, 'base64').toString('utf-8')` by `utils/environment.ts`.
 
 ## Running
 
