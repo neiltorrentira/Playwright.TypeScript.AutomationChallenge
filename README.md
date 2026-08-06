@@ -67,6 +67,6 @@ $env:HEADLESS='true'; npx playwright test tests/automation-challenge.spec.ts   #
     └── excelReader.ts               # reads data/challenge.xlsx into typed row objects
 ```
 
-## Known limitation
+## Intermittent Issue / Known limitation
 
-A Try Again error may appear after completed a full live 50-row run end to end. But thi may be a timing issue or something. May extend the functional scope to always check SUCCESS! after full live 50-row run end to end.
+An intermittent/once in a blue moon issue may occur which a "Try Again" error message may appear after a completed full live 50-row run end to end. But this may be a timing issue or something. May extend the functional scope to always check SUCCESS! after full live 50-row run end to end.
