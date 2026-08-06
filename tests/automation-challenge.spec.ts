@@ -7,7 +7,7 @@ import { ChallengePage } from '../pages/ChallengePage';
 
 test.describe('The Automation Challenge', () => {
   test('completes all 50 rows with 100% accuracy in minimal time', async ({ page }) => {
-    test.setTimeout(300_000);
+    test.setTimeout(300000);
     const rows = readChallengeRows(path.resolve(__dirname, '../data/challenge.xlsx'));
     expect(rows).toHaveLength(50);
 
@@ -23,7 +23,7 @@ test.describe('The Automation Challenge', () => {
     for (let i = 0; i < rows.length; i++) {
       await challengePage.fillRow(rows[i], i + 1);
       await challengePage.submit();
-      await challengePage.dismissOverlayIfPresent();
+      await challengePage.dismissReCaptchaPresent();
     }
     const elapsedMs = Date.now() - startedAt;
     console.log(`Completed ${rows.length} rows in ${elapsedMs}ms`);

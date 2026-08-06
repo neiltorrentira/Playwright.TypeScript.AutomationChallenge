@@ -41,7 +41,7 @@ export class ChallengePage extends BasePage {
         return;
       } catch (error) {
         if (attempt === maxAttempts) throw error;
-        await this.dismissOverlayIfPresent();
+        await this.dismissReCaptchaPresent();
       }
     }
   }

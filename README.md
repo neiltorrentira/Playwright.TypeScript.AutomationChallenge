@@ -6,6 +6,21 @@ End-to-end Playwright + TypeScript automation for [The Automation Challenge](htt
 
 Each field's HTML `id` keeps a stable prefix (e.g. `company_name_input_field_`) even though the numeric suffix, on-screen position, and size all change every round. The automation locates each field with `input[id^="<prefix>"]:visible` rather than reading visual labels — verified robust across dozens of live rounds.
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) 18 or later (required by `@playwright/test`), with npm (bundled with Node)
+- [Git](https://git-scm.com/), to clone the repo
+
+Everything else is a devDependency in `package.json`, installed automatically by `npm install` (below) — no separate/global installs needed:
+
+| Package | Version | Used for |
+|---------|---------|----------|
+| [`@playwright/test`](https://www.npmjs.com/package/@playwright/test) | `^1.62.1` | Test runner and browser automation |
+| [`playwright`](https://www.npmjs.com/package/playwright) (via `@playwright/test`) | — | Chromium browser driver; `npx playwright install chromium` (below) downloads the actual browser binary |
+| [`typescript`](https://www.npmjs.com/package/typescript) | `^6.0.3` | Compiles/type-checks `pages/`, `utils/`, `tests/` |
+| [`@types/node`](https://www.npmjs.com/package/@types/node) | `^26.1.2` | Node.js type definitions for TypeScript |
+| [`xlsx`](https://www.npmjs.com/package/xlsx) (SheetJS) | `^0.18.5` | Reads `data/challenge.xlsx` in `utils/excelReader.ts` |
+
 ## Getting Started
 
 ```bash
@@ -13,7 +28,7 @@ npm install
 npx playwright install chromium
 ```
 
-Credentials and the target URL are stored in `data/test-data.json`. Passwords are stored as base64-encoded strings and decoded at runtime using `Buffer.from(encodedPassword, 'base64').toString('utf-8')` by `utils/environment.ts`.
+Credentials and the target URL are stored in `data/test-data.json`. Username and Passwords are stored as base64-encoded strings and decoded at runtime using `Buffer.from(encodedPassword, 'base64').toString('utf-8')` by `utils/environment.ts`.
 
 ## Running
 
