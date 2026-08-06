@@ -8,24 +8,35 @@ export class BasePage {
     await this.page.waitForTimeout(300);
   }
 
-  async dismissReCaptchaPresent(): Promise<void> {
-    const greyout = this.page.locator('div.greyout').first();
-    const isBlocking = await greyout.isVisible({ timeout: 500 }).catch(() => false);
+async dismissReCaptchaIfPresent(): Promise<void> {
+    const popupHeading = this.page.getByText('Get through this reCAPTCHA to continue');
+    const isBlocking = await popupHeading.isVisible({ timeout: 500 }).catch(() => false);
     if (!isBlocking) return;
-    
-    //await this.page.screenshot({ path: `test-results/recaptcha-${Date.now()}.png`, fullPage: true });
 
-    //const checkbox = this.page.frameLocator('iframe[src*="recaptcha/api2/anchor"]').getByRole('checkbox');
-    //const button = this.page.frameLocator('bubble-element.Popup').getByRole('button');
-    const popup = this.page.locator('.bubble-element.Popup');
-    const popupVisible = await popup.isVisible({ timeout: 3000 }).catch(() => false);
-    if (popupVisible) {
-      //await popup.click();
-      //await this.page.locator('button.bubble-element.Button.clickable-element').press('Enter');
-      await this.page.keyboard.press('Enter');
-      //await this.page.click('button.bubble-element.Button.clickable-element');
+    await this.page.waitForTimeout(500);
+    await this.page.screenshot({ path: `test-results/recaptcha-${Date.now()}.png`, fullPage: true });
+
+    const popupContainer = this.page.locator('div.bubble-element.Popup', {
+      hasText: 'Get through this reCAPTCHA to continue',
+    });
+    const recaptchaButton = popupContainer.locator('button.clickable-element');
+
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      const buttonVisible = await recaptchaButton.isVisible({ timeout: 3000 }).catch(() => false);
+      if (buttonVisible) {
+        await recaptchaButton.click({ force: true }).catch(() => {});
+      }
       await this.page.waitForTimeout(1500);
+
+      const stillBlocking = await popupHeading.isVisible({ timeout: 1000 }).catch(() => false);
+      if (!stillBlocking) return;
     }
+
+    throw new Error(
+      "reCAPTCHA pop-up could not be dismissed after click attempts on the popup's " +
+      'checkbox button. See the screenshot in test-results/.'
+    );
   }
+
 }
 

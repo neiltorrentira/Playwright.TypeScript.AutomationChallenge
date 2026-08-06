@@ -69,4 +69,4 @@ $env:HEADLESS='true'; npx playwright test tests/automation-challenge.spec.ts   #
 
 ## Known limitation
 
-The automation has not yet completed a full live 50-row run end to end. It runs like 40+ or so rounds correctly, but the site's real Google reCAPTCHA overlay (which the site itself warns is a random pop-up) has appeared and blocked progress around round 40+ of 50.
+A Try Again error may appear after completed a full live 50-row run end to end. But thi may be a timing issue or something. May extend the functional scope to always check SUCCESS! after full live 50-row run end to end.

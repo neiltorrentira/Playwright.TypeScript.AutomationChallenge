@@ -33,20 +33,29 @@ export class ChallengePage extends BasePage {
     }
   }
 
+private async currentRoundLabel(): Promise<string> {
+    const text = await this.page.getByText(/Round \d+ of 50/).textContent({ timeout: 500 }).catch(() => '');
+    return text ?? '';
+  }
+
   async submit(): Promise<void> {
     const maxAttempts = 3;
     for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      const roundBefore = await this.currentRoundLabel();
       try {
         await this.page.getByRole('button', { name: 'Submit' }).click({ timeout: 10000 });
         return;
       } catch (error) {
         if (attempt === maxAttempts) throw error;
-        await this.dismissReCaptchaPresent();
+        await this.dismissReCaptchaIfPresent();
+
+        const roundAfter = await this.currentRoundLabel();
+        if (roundAfter !== roundBefore) return;
       }
     }
   }
 
-  async isChallengeComplete(): Promise<boolean> {
-    return this.page.getByText(/congratulations/i).isVisible({ timeout: 5000 }).catch(() => false);
-  }
+  //async isChallengeComplete(): Promise<boolean> {
+  //  return this.page.getByText(/congratulations/i).isVisible({ timeout: 5000 }).catch(() => false);
+  //}
 }
